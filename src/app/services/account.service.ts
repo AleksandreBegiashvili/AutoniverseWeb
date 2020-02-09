@@ -11,7 +11,8 @@ export class AccountService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  private baseUrlLogin: string = "/api/account/login";
+  private baseUrlLogin: string = "https://localhost:44314/api/account/login";
+  private baseUrlRegister: string = "https://localhost:44314/api/account/register";
 
   private loginStatus = new BehaviorSubject<boolean>(this.checkLoginStatus());
   private userName = new BehaviorSubject<string>(localStorage.getItem('userName'));
@@ -39,7 +40,7 @@ export class AccountService {
   };
 
   logout() {
-    this.loginStatus.next(true);
+    this.loginStatus.next(false);
     localStorage.setItem('loginStatus', '0');
     localStorage.removeItem('jwt');
     localStorage.removeItem('username');
@@ -49,11 +50,25 @@ export class AccountService {
     console.log("Logged out successfully");
   }
 
+  register(username: string, password: string, email: string) {
+    return this.http.post<any>(this.baseUrlRegister, { username, password, email }).pipe(
+      map
+        (
+          result => {
+            // registration was successful
+            return result;
+          },
+          error => {
+            return error;
+          })
+    );
+  }
+
   checkLoginStatus(): boolean {
     return false;
   }
 
-  
+
   get isLoggedIn() {
     return this.loginStatus.asObservable();
   }

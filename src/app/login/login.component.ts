@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../services/account.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Login } from '../models/login';
 
 @Component({
   selector: 'app-login',
@@ -27,21 +28,21 @@ export class LoginComponent implements OnInit {
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
     });
-    console.log(this.loginForm);
+    //console.log(this.loginForm);
 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
   }
 
   onSubmit() {
-    let userLogin = this.loginForm.value;
+    let userLogin: Login = this.loginForm.value;
     this.accServ.login(userLogin.username, userLogin.password).subscribe(
       result => {
         let token = (<any>result).token;
-        console.log(token);
+        //console.log(token);
         console.log("User logged in successfuly");
         this.invalidLogin = false;
-        console.log(this.returnUrl);
+        //console.log(this.returnUrl);
         this.router.navigateByUrl(this.returnUrl);
       },
       err => {
