@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -13,6 +13,7 @@ export class AccountService {
 
   private baseUrlLogin: string = "https://localhost:44314/api/account/login";
   private baseUrlRegister: string = "https://localhost:44314/api/account/register";
+  private baseUrlEmailConfirm: string = "https://localhost:44314/api/notification";
 
   private loginStatus = new BehaviorSubject<boolean>(this.checkLoginStatus());
   private userName = new BehaviorSubject<string>(localStorage.getItem('userName'));
@@ -62,7 +63,21 @@ export class AccountService {
             return error;
           })
     );
-  }
+  };
+
+  getEmailConfirmationPage(): Observable<string> {
+    let headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
+    return this.http.get<string>(this.baseUrlEmailConfirm, {headers, responseType: 'text' as 'json'}).pipe(
+      map(
+        result => {
+          return result;
+        },
+        error => {
+          return error;
+        }
+      )
+    );
+  };
 
   checkLoginStatus(): boolean {
     return false;
