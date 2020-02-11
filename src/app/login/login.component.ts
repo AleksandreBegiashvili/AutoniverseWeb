@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     let userLogin: Login = this.loginForm.value;
-    this.accServ.login(userLogin.username, userLogin.password).subscribe(
+    this.accServ.login(userLogin).subscribe(
       result => {
         let token = (<any>result).token;
         //console.log(token);

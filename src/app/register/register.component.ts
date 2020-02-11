@@ -79,7 +79,7 @@ export class RegisterComponent implements OnInit {
   // Works fine except not all errors are shown in modal at one go
   onSubmit() {
     let user: Register = this.registerForm.value;
-    this.accServ.register(user.username, user.password, user.email).subscribe(
+    this.accServ.register(user).subscribe(
       result => {
         this.router.navigate(['/login']);
       },

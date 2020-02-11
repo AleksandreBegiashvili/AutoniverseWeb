@@ -12,6 +12,9 @@ import { RegisterComponent } from './register/register.component';
 import { CarsComponent } from './cars/cars.component';
 import { HomeComponent } from './home/home.component';
 import { EmailComponent } from './email/email.component';
+import { RouterModule } from '@angular/router';
+import { DynamicComponentModule } from 'ng-dynamic';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +32,8 @@ import { EmailComponent } from './email/email.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    DynamicComponentModule.forRoot({imports: [RouterModule]})
   ],
   providers: [],
   bootstrap: [AppComponent]

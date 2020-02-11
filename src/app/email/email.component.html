@@ -1,1 +1,8 @@
-<div [innerHtml]="emailconfirmMessage"></div>
+<!-- DynamicComponentModule is used to load html from web api and make angular features work as well-->
+<!-- npm install --save ng-dynamic -->
+<!-- It was necessary to change import route in module.js for ng-dynamic node module-->
+<!-- Sanitizer Pipe is also a good way to maintain the HTML send from web api-->
+<div *dynamicComponent="emailconfirmMessage"></div>
+
+
+<!-- [innerHtml]="sanitizer.bypassSecurityTrustHtml(emailconfirmMessage)" -->
