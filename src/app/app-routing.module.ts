@@ -23,10 +23,10 @@ const routes: Routes = [
     path: "register",
     component: RegisterComponent
   },
-  {
-    path: "emailConfirmation",
-    component: EmailComponent
-  },
+  // {
+  //   path: "emailConfirmation",
+  //   component: EmailComponent
+  // },
   {
     path: "**",
     redirectTo: '/home'

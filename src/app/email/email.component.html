@@ -2,7 +2,16 @@
 <!-- npm install --save ng-dynamic -->
 <!-- It was necessary to change import route in module.js for ng-dynamic node module-->
 <!-- Sanitizer Pipe is also a good way to maintain the HTML send from web api-->
-<div *dynamicComponent="emailconfirmMessage"></div>
+<!-- <div *dynamicComponent="emailconfirmMessage"></div> -->
 
 
 <!-- [innerHtml]="sanitizer.bypassSecurityTrustHtml(emailconfirmMessage)" -->
+
+<!-- 
+<div class="card">
+    <div class="box">
+        <h2>Thank you <br> <span>Email Confirmed</span></h2>
+        <p>You can now successfully login. You have full access to our products and services</p>
+        <a class="btn btn-primary btn-block" [routerLink]="['/login']">LOGIN</a>
+    </div>
+</div> -->

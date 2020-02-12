@@ -19,11 +19,14 @@ export class EmailComponent implements OnInit {
               private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    this.accServ.getEmailConfirmationPage().subscribe(
+    /*
+    this.accServ.getEmailConfirmationPage(null, null).subscribe(
       result => {
         this.emailconfirmMessage = result;
       }
     )
+    */
   }
 
 }
+ 
