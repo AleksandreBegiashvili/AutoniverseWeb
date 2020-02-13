@@ -14,6 +14,8 @@ import { HomeComponent } from './home/home.component';
 import { EmailComponent } from './email/email.component';
 import { RouterModule } from '@angular/router';
 import { DynamicComponentModule } from 'ng-dynamic';
+import { DataTablesModule } from 'angular-datatables';
+import { AccessDeniedComponent } from './errors/access-denied/access-denied.component';
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { DynamicComponentModule } from 'ng-dynamic';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    EmailComponent
+    EmailComponent,
+    AccessDeniedComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { DynamicComponentModule } from 'ng-dynamic';
     HttpClientModule,
     ModalModule.forRoot(),
     DynamicComponentModule.forRoot({imports: [RouterModule]}),
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    DataTablesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

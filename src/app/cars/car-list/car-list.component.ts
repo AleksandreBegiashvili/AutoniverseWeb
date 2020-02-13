@@ -4,6 +4,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/public_api';
 import { Car } from 'src/app/models/car';
 import { Observable, Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
+import { CarService } from 'src/app/services/car.service';
 
 @Component({
   selector: 'app-car-list',
@@ -48,7 +49,7 @@ export class CarListComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject();
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
 
-  constructor() { }
+  constructor(private carServ: CarService) { }
 
   ngOnInit() {
     this.dtOptions = {
@@ -57,6 +58,14 @@ export class CarListComponent implements OnInit {
       autoWidth: true,
       order: [[0, 'desc']]
     };
+
+    this.cars$ = this.carServ.getCars();
+    this.cars$.subscribe(
+      result => {
+        this.cars = result;
+        this.dtTrigger.next(this.cars);
+      }
+    )
   }
 
 }
