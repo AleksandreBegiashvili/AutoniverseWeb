@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { EmailComponent } from './email/email.component';
+import { AccessDeniedComponent } from './errors/access-denied/access-denied.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
   //   path: "emailConfirmation",
   //   component: EmailComponent
   // },
+  {
+    path: "access-denied",
+    component: AccessDeniedComponent
+  },
   {
     path: "**",
     redirectTo: '/home'

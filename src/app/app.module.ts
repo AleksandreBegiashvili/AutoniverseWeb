@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AppComponent } from './app.component';
@@ -16,6 +16,8 @@ import { RouterModule } from '@angular/router';
 import { DynamicComponentModule } from 'ng-dynamic';
 import { DataTablesModule } from 'angular-datatables';
 import { AccessDeniedComponent } from './errors/access-denied/access-denied.component';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { AuthGuardService } from './guards/auth-guard.service';
 
 
 @NgModule({
@@ -39,7 +41,14 @@ import { AccessDeniedComponent } from './errors/access-denied/access-denied.comp
     AngularFontAwesomeModule,
     DataTablesModule
   ],
-  providers: [],
+  providers: [
+    AuthGuardService,
+    {
+      provide: HTTP_INTERCEPTORS, 
+      useClass: JwtInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
