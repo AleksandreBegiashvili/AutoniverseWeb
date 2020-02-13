@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Car } from '../models/car';
+import { shareReplay, first, flatMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -17,27 +18,41 @@ export class CarService {
 
   private car$: Observable<Car[]>;
 
-  getCars(): Observale<Car[]> {
-
-  }
+  getCars(): Observable<Car[]> {
+    if (!this.car$) {
+      this.car$ = this.http.get<Car[]>(this.baseUrl).pipe(
+        shareReplay()
+      );
+    }
+    // If cars already exist, then return it
+    return this.car$;
+  };
 
   // Get car by its ID
-  getCar(): Observable<Car> {
-
-  }
+  getCarById(id: number): Observable<Car> {
+    return this.getCars().pipe(flatMap(
+      result => result),
+      first(car => car.id == id)
+    );
+  };
 
   // Insert a car
-  insertCar(car: Car): Observable<Product> {
-
+  insertCar(car: Car): Observable<Car> {
+    return this.http.post<Car>(this.baseUrlAdd, car);
   }
 
   // Update a  car
-  updateProduct(id: number, car: Car): Observable<Product> {
-
+  updateCar(id: number, car: Car): Observable<Car> {
+    return this.http.put<Car>(`${this.baseUrlUpdate}/${id}`, car);
   }
 
   // Delete a car
   deleteCar(id: number) {
-    
+    return this.http.delete(`${this.baseUrlDelete}/${id}`);
+  }
+
+  // Clear cache
+  clearCache() {
+    this.car$ = null;
   }
 }

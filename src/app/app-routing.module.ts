@@ -16,6 +16,10 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
+    path: 'cars',
+    loadChildren: './cars/cars.module#CarsModule'
+  },
+  {
     path: "login",
     component: LoginComponent
   },

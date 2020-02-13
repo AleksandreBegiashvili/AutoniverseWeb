@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AccountService } from '../services/account.service';
+import { CarService } from '../services/car.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -13,7 +14,8 @@ export class NavMenuComponent implements OnInit {
   loginStatus$: Observable<boolean>;
   username$: Observable<string>;
 
-  constructor(private accServ: AccountService) { }
+  constructor(private accServ: AccountService,
+              private carServ: CarService) { }
 
   ngOnInit() {
     this.loginStatus$ = this.accServ.isLoggedIn;
@@ -21,6 +23,7 @@ export class NavMenuComponent implements OnInit {
   }
 
   onLogout() {
+    this.carServ.clearCache();
     this.accServ.logout();
   }
 
