@@ -1,6 +1,6 @@
 export class Car {
     id: number;
-    carCategoryId: number;
+    carCategoryId: number = 1;
     make: string;
     model: string;
     //saleType: string;

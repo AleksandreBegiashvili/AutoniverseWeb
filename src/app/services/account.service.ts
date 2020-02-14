@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { isNullOrUndefined } from 'util';
 import { Register } from '../models/register';
 import { Login } from '../models/login';
+import * as jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -122,7 +123,7 @@ export class AccountService {
 
 
 
- //EMAIL CONFIRMATION. NEEDS FIX!!!!!!!!
+  //EMAIL CONFIRMATION. NEEDS FIX!!!!!!!!
   /*
   
   
@@ -152,9 +153,32 @@ export class AccountService {
 
 
   checkLoginStatus(): boolean {
+
+
     var loginCookie = localStorage.getItem("loginStatus");
-    if(loginCookie == "1") {
-      return true;
+
+    if (loginCookie == "1") {
+      if (isNullOrUndefined(localStorage.getItem('jwt'))) {
+        return false;
+      }
+      // Get and Decode the token
+      const token = localStorage.getItem('jwt');
+      const decoded = jwt_decode(token);
+
+      // check if the cookie is valid
+      if (decoded.exp === undefined) {
+        return false;
+      }
+      // Get current date time
+      const date = new Date(0);
+      // Convert Exp Time to UTC
+      let tokenExpDate = date.setUTCSeconds(decoded.exp);
+
+      // If value of token time greater than now
+      if (tokenExpDate.valueOf() > new Date().valueOf()) {
+        return true;
+      }
+      return false;
     }
     return false;
   }

@@ -27,6 +27,7 @@
     "datatables.net-dt": "^1.10.20",
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
+    "jwt-decode": "^2.2.0",
     "ng-dynamic": "^3.0.2",
     "ngx-bootstrap": "^5.3.2",
     "popper.js": "^1.16.1",
